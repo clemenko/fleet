@@ -8,4 +8,4 @@ spec:
   repo: https://github.com/clemenko/fleet
   targetNamespace: flask
   paths:
-  - *
+  - /*
