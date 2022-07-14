@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: blog
+  name: ghost
   labels:
-    app: blog
+    app: ghost
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: blog
+      app: ghost
   template:
     metadata:
       labels:
-        app: blog
+        app: ghost
     spec:
       containers:
-      - name: blog
+      - name: ghost
         image: ghost
         imagePullPolicy: Always
         ports:
