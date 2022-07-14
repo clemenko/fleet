@@ -1,0 +1,10 @@
+kind: GitRepo
+apiVersion: fleet.cattle.io/v1alpha1
+metadata:
+  name: flask
+  namespace: fleet-local
+spec:
+  repo: https://github.com/clemenko/k8s_yaml
+  targetNamespace: flask
+  paths:
+  - flask_simple.yaml
