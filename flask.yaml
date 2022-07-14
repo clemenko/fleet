@@ -1,9 +1,15 @@
 # clemenko
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: flask
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: flask
+  namespace: flask
   labels:
     app: flask
 spec:
@@ -35,6 +41,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis
+  namespace: flask
   labels:
     app: redis
 spec:
@@ -71,6 +78,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: redis
+  namespace: flask
 stringData:
   CRYPTO_KEY_VALUE: "flaskisthebestdemoapplication"
   CRYPTO_KEY_PROVIDER: "secret"
@@ -80,6 +88,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: redis
+  namespace: flask
   labels:
     app: redis
 spec:
@@ -97,6 +106,7 @@ metadata:
     name: flask
     kubernetes.io/name: "flask"
   name: flask
+  namespace: flask
 spec:
   selector:
     app: flask
@@ -113,6 +123,7 @@ metadata:
     name: redis
     kubernetes.io/name: "redis"
   name: redis
+  namespace: flask
 spec:
   selector:
     app: redis
@@ -125,6 +136,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: flask
+  namespace: flask
   annotations:
     kubernetes.io/ingress.class: "nginx"
 spec:
@@ -144,6 +156,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: flask-ingressroute
+  namespace: flask
 spec:
   entryPoints:
     - web
