@@ -1,0 +1,55 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: blog
+  labels:
+    app: blog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog
+  template:
+    metadata:
+      labels:
+        app: blog
+    spec:
+      containers:
+      - name: blog
+        image: ghost
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 2368
+        env:
+        - name: url
+          value: http://ghost.rfed.io
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: ghost
+  name: ghost
+spec:
+  ports:
+  - name: ghost
+    protocol: TCP
+    port: 2368
+    targetPort: 2368
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ghost-ingressroute
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`ghost.rfed.io`)
+      kind: Rule
+      services:
+        - name: ghost
+          port: 2368
