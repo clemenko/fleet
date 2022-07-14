@@ -7,5 +7,4 @@ spec:
   branch: main
   repo: https://github.com/clemenko/fleet
   targetNamespace: flask
-  paths:
-  - /*
+
