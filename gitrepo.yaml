@@ -4,7 +4,8 @@ metadata:
   name: flask
   namespace: fleet-local
 spec:
+  branch: main
   repo: https://github.com/clemenko/fleet
   targetNamespace: flask
   paths:
-  - flask_simple.yaml
+  - flask.yaml
