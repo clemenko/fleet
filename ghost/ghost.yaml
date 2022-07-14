@@ -23,7 +23,14 @@ spec:
         env:
         - name: url
           value: http://ghost.rfed.io
-
+        volumeMounts:
+        - mountPath: /var/lib/ghost/content
+          name: ghost
+      volumes:
+      - name: ghost
+        persistentVolumeClaim:
+          claimName: ghost
+          
 ---
 
 apiVersion: v1
@@ -40,6 +47,20 @@ spec:
     protocol: TCP
     port: 2368
     targetPort: 2368
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: ghost
+  labels:
+    app: ghost
+spec:
+  accessModes: 
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
 
 ---
 
