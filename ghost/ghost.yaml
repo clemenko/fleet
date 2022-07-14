@@ -33,6 +33,8 @@ metadata:
     name: ghost
   name: ghost
 spec:
+  selector:
+    app: ghost
   ports:
   - name: ghost
     protocol: TCP
