@@ -36,4 +36,4 @@ spec:
   repo: https://github.com/clemenko/fleet
   targetNamespace: ghost
   paths:
-  - whoami
+  - ghost
