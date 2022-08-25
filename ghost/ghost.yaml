@@ -16,13 +16,15 @@ spec:
     spec:
       containers:
       - name: ghost
-        image: ghost
+        image: ghost:alpine
         imagePullPolicy: Always
         ports:
         - containerPort: 2368
         env:
         - name: url
           value: http://ghost.rfed.io
+        - name: NODE-ENV
+          value: development
         volumeMounts:
         - mountPath: /var/lib/ghost/content
           name: ghost
