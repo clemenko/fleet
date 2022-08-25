@@ -23,7 +23,7 @@ spec:
         env:
         - name: url
           value: http://ghost.rfed.io
-        - name: NODE-ENV
+        - name: NODE_ENV
           value: development
         volumeMounts:
         - mountPath: /var/lib/ghost/content
