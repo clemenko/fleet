@@ -1,0 +1,38 @@
+kind: GitRepo
+apiVersion: fleet.cattle.io/v1alpha1
+metadata:
+  name: flask
+  namespace: fleet-local
+spec:
+  branch: main
+  repo: http://gitea.rfed.io/gitea/fleet
+  targetNamespace: flask
+  paths:
+  - flask
+---
+
+kind: GitRepo
+apiVersion: fleet.cattle.io/v1alpha1
+metadata:
+  name: whoami
+  namespace: fleet-local
+spec:
+  branch: main
+  repo: http://gitea.rfed.io/gitea/fleet
+  targetNamespace: whoami
+  paths:
+  - whoami
+
+---
+
+kind: GitRepo
+apiVersion: fleet.cattle.io/v1alpha1
+metadata:
+  name: ghost
+  namespace: fleet-local
+spec:
+  branch: main
+  repo: http://gitea.rfed.io/gitea/fleet
+  targetNamespace: ghost
+  paths:
+  - ghost
