@@ -5,7 +5,8 @@ metadata:
   namespace: fleet-local
 spec:
   branch: main
-  repo: http://gitea.rfed.io/gitea/fleet
+  insecureSkipTLSVerify: true
+  repo: https://git.rfed.io/gitea/fleet/
   targetNamespace: flask
   paths:
   - flask
@@ -18,7 +19,8 @@ metadata:
   namespace: fleet-local
 spec:
   branch: main
-  repo: http://gitea.rfed.io/gitea/fleet
+  insecureSkipTLSVerify: true
+  repo: https://git.rfed.io/gitea/fleet/
   targetNamespace: whoami
   paths:
   - whoami
@@ -32,7 +34,8 @@ metadata:
   namespace: fleet-local
 spec:
   branch: main
-  repo: http://gitea.rfed.io/gitea/fleet
+  insecureSkipTLSVerify: true
+  repo: https://git.rfed.io/gitea/fleet/
   targetNamespace: ghost
   paths:
   - ghost
