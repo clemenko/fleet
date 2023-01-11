@@ -19,3 +19,12 @@ https://github.com/rancher/fleet-examples
 ## Docs
 
 https://fleet.rancher.io/
+
+
+### Snippet
+
+```bash
+function refresh_gitrepos() {
+  for gitrepo in $(k get gitrepo --no-headers -n fleet-default | awk '{ print $1 }'); gen=$(k get gitrepo -n fleet-default $gitrepo -o json | jq -r '.spec.forceSyncGeneration'); k patch -n fleet-default gitrepo "$gitrepo" --type merge -p "{\"spec\": {\"forceSyncGeneration\": $((gen+1))}}"; done
+}
+```
