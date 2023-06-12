@@ -167,7 +167,7 @@ spec:
       services:
         - name: flask
           port: 5000
----
+# ---
 #apiVersion: ui.cattle.io/v1
 #kind: NavLink
 #metadata:
