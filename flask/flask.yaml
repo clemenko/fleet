@@ -175,8 +175,4 @@ metadata:
 spec:
   label: Flask
   target: _blank
-  toService:
-    name: flask
-    namespace: flask
-    port: '5000'
-    scheme: http
+  toURL: http://deploy.rfed.me
