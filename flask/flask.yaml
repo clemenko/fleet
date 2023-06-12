@@ -177,6 +177,5 @@ spec:
   target: _blank
   toService:
     name: flask
-    defaultNamespace: flask
     port: '5000'
     scheme: http
