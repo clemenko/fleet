@@ -167,16 +167,3 @@ spec:
       services:
         - name: flask
           port: 5000
-# ---
-#apiVersion: ui.cattle.io/v1
-#kind: NavLink
-#metadata:
-#  name: flask
-#spec:
-#  label: Flask
-#  target: _blank
-#  toService:
-#    name: flask
-#    namespace: flask
-#    port: '5000'
-#    scheme: http
