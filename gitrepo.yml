@@ -6,7 +6,7 @@ metadata:
 spec:
   branch: main
   repo: https://github.com/clemenko/fleet
-  targetNamespace: flask
+  defaultNamespace: flask
   paths:
   - flask
 ---
