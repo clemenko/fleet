@@ -25,7 +25,7 @@ spec:
       - name: flask
         securityContext:
           allowPrivilegeEscalation: false
-        image: clemenko/flask_simple:0.2 #rockylinux
+        image: clemenko/flask_simple:0.3 #rockylinux
         #command: [ "/bin/sh", "-c", "sleep 3003003240204242" ]
         ports:
         - containerPort: 5000
