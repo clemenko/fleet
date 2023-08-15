@@ -66,16 +66,21 @@ spec:
 
 ---
 
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: ghost-ingressroute
+  name: ghost
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
 spec:
-  entryPoints:
-    - web
-  routes:
-    - match: Host(`ghost.rfed.io`)
-      kind: Rule
-      services:
-        - name: ghost
-          port: 2368
+  rules:
+  - host: ghost.rfed.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: ghost
+            port:
+              number: 2368

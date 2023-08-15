@@ -38,20 +38,6 @@ spec:
     port: 8000
     targetPort: 80
 ---
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
-metadata:
-  name: whoami-ingressroute
-spec:
-  entryPoints:
-    - web
-  routes:
-    - match: Host(`whoami.rfed.io`)
-      kind: Rule
-      services:
-        - name: whoami
-          port: 8000
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
