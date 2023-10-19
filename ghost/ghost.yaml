@@ -70,8 +70,6 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ghost
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
   - host: ghost.rfed.io

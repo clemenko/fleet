@@ -43,8 +43,6 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: whoami
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
   - host: whoami.rfed.io
