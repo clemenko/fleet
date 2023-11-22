@@ -1,11 +1,11 @@
 cloudprovider: amazonec2
-cloudCredentialSecretName: cattle-global-data:cc-rqcgw # required: replace with your cloud credentials id
+cloudCredentialSecretName: cattle-global-data:amazonec2credential # required: replace with your cloud credentials id
 cluster:
   annotations: {}
   labels:
-    cluster_name: aws-rke2-cluster
-  name: aws-rke2-cluster
-kubernetesVersion: v1.25.15+rke2r2
+    cluster_name: rke2-cluster
+  name: rke2-cluster
+kubernetesVersion: v1.26.10+rke2r2 # v1.25.15+rke2r2
 cni: canal
 system_default_registry: docker.io
 monitoring:
@@ -50,36 +50,34 @@ nodepools:
     quantity: 3
     paused: false
     name: control-plane-nodes
-    ami: ami-09c77dc92e45bc3ea # optional: replace with your ami id
+    ami: ami-05a5f6298acdb05b6 # rocky ami-09c77dc92e45bc3ea  # optional: replace with your ami id
     deviceName: /dev/sda1
     encryptEbsVolume: false
     endpoint: ''
-    iamInstanceProfile: 'aws-rgs-rke2-iam-profile-control' # required: replace with your iam instance profile name
+    iamInstanceProfile: 'iam-profile' # required: replace with your iam instance profile name
     insecureTransport: false
-    instanceType: m5.large
+    instanceType: m6a.xlarge
     region: us-east-1
     createSecurityGroup: false
-    securityGroups: ['aws-rgs-rke2-sg'] # required: replace with your security group name
+    securityGroups: ['default'] # required: replace with your security group name
     keypairName: ''
     securityGroupReadonly: false
     sshKeyContents: ''
-    subnetId: subnet-04ce5019b88e4959d # required: replace with your subnet id
+    subnetId: subnet-0a798890114529bf6 # required: replace with your subnet id
+    zone: b
     monitoring: false
-    openPort:
-      - '8080'
-      - '8443'
-      - '443'
-    privateAddressOnly: true
+    privateAddressOnly: false
     requestSpotInstance: false
     tags: provisioner,rancher,KeepRunning,true
     retries: 5
-    rootSize: 64
-    sshUser: rocky
+    rootSize: 80
+    sshUser: ec2-user
     volumeType: gp3
-    vpcId: vpc-0126d1d91f8d8dbc0 # required: replace with your vpc id
+    vpcId: vpc-0a41666752f70473d # required: replace with your vpc id
     useEbsOptimizedInstance: false
-    usePrivateAddress: true
+    usePrivateAddress: false
     userdata: |
+      #cloud-config     
       write_files:
       - path: /etc/sysctl.conf
         owner: root
@@ -191,7 +189,6 @@ nodepools:
       - sudo echo -e "[keyfile]\nunmanaged-devices=interface-name:cali*;interface-name:flannel*" > /etc/NetworkManager/conf.d/rke2-canal.conf
       - sudo mkdir -p /opt/rke2-artifacts/ /etc/rancher/rke2/ /var/lib/rancher/rke2/server/manifests/
       - sudo useradd -r -c "etcd user" -s /sbin/nologin -M etcd -U
-    zone: a
   - etcd: false
     controlplane: false
     worker: true
@@ -200,36 +197,34 @@ nodepools:
     quantity: 3
     paused: false
     name: worker-nodes
-    ami: ami-09c77dc92e45bc3ea # optional: replace with your ami id
+    ami: ami-05a5f6298acdb05b6 # rocky ami-09c77dc92e45bc3ea  # optional: replace with your ami id
     deviceName: /dev/sda1
     encryptEbsVolume: false
     endpoint: ''
-    iamInstanceProfile: 'aws-rgs-rke2-iam-profile-worker' # required: replace with your iam instance profile name
+    iamInstanceProfile: 'iam-profile' # required: replace with your iam instance profile name
     insecureTransport: false
-    instanceType: m5.xlarge
+    instanceType: m6a.xlarge
     region: us-east-1
     createSecurityGroup: false
-    securityGroups: ['aws-rgs-rke2-sg'] # required: replace with your security group name
-    keypairName: ''
+    securityGroups: ['default'] # required: replace with your security group name
+    keypairName: '' # adding key
     securityGroupReadonly: false
     sshKeyContents: ''
-    subnetId: subnet-04ce5019b88e4959d # required: replace with your subnet id
+    subnetId: subnet-0a798890114529bf6 # required: replace with your subnet id
+    zone: b
     monitoring: false
-    openPort:
-      - '8080'
-      - '8443'
-      - '443'
-    privateAddressOnly: true
+    privateAddressOnly: false
     requestSpotInstance: false
     tags: provisioner,rancher,KeepRunning,true
     retries: 5
-    rootSize: 128
-    sshUser: rocky
+    rootSize: 80
+    sshUser: ec2-user
     volumeType: gp3
-    vpcId: vpc-0126d1d91f8d8dbc0 # required: replace with your vpc id
+    vpcId: vpc-0a41666752f70473d # required: replace with your vpc id
     useEbsOptimizedInstance: false
-    usePrivateAddress: true
+    usePrivateAddress: false
     userdata: |
+      #cloud-config 
       write_files:
       - path: /etc/sysctl.conf
         owner: root
@@ -272,4 +267,4 @@ nodepools:
       - sudo systemctl stop firewalld; systemctl disable firewalld; systemctl stop nm-cloud-setup; systemctl disable nm-cloud-setup; systemctl stop nm-cloud-setup.timer; systemctl disable nm-cloud-setup.timer
       - sudo echo -e "[keyfile]\nunmanaged-devices=interface-name:cali*;interface-name:flannel*" > /etc/NetworkManager/conf.d/rke2-canal.conf
       - sudo mkdir -p /etc/rancher/rke2/
-    zone: a
+

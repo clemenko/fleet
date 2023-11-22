@@ -50,4 +50,4 @@ spec:
   repo: https://github.com/clemenko/fleet
   targetNamespace: aws
   paths:
-  - aws_template
+  - template
