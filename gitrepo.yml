@@ -36,3 +36,18 @@ spec:
   targetNamespace: ghost
   paths:
   - ghost
+
+
+---
+
+kind: GitRepo
+apiVersion: fleet.cattle.io/v1alpha1
+metadata:
+  name: aws
+  namespace: fleet-local
+spec:
+  branch: main
+  repo: https://github.com/clemenko/fleet
+  targetNamespace: aws
+  paths:
+  - aws_template
