@@ -7,9 +7,15 @@ cluster:
   name: rke2-cluster
 kubernetesVersion: v1.26.10+rke2r2 # v1.25.15+rke2r2
 cni: canal
-system_default_registry: docker.io
 monitoring:
   enabled: false
+system_default_registry: docker.io
+#registries:
+#  configs:
+#    rgcrprod.azurecr.us:
+#      authConfigSecretName: cattle-global-data:carbidecredential
+#      caBundle: ''
+#      insecureSkipVerify: false
 rke:
   localClusterAuthEndpoint:
     enabled: false
