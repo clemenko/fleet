@@ -200,7 +200,7 @@ nodepools:
     worker: true
     labels: {}
     taints: {}
-    quantity: 6
+    quantity: 3
     paused: false
     name: worker-nodes
     ami: ami-05a5f6298acdb05b6 # rocky ami-09c77dc92e45bc3ea  # optional: replace with your ami id
