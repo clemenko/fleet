@@ -10,12 +10,12 @@ cni: canal
 monitoring:
   enabled: false
 system_default_registry: docker.io
-#registries:
-#  configs:
-#    rgcrprod.azurecr.us:
-#      authConfigSecretName: carbidecredential
-#      caBundle: ''
-#      insecureSkipVerify: false
+registries:
+  configs:
+    rgcrprod.azurecr.us:
+      authConfigSecretName: carbidecredential
+      caBundle: ''
+      insecureSkipVerify: false
 rke:
   localClusterAuthEndpoint:
     enabled: false
