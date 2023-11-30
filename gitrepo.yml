@@ -44,19 +44,12 @@ kind: GitRepo
 apiVersion: fleet.cattle.io/v1alpha1
 metadata:
   name: aws
-  namespace: fleet-default
+  namespace: fleet-local
 spec:
   branch: main
-  repo: https://github.com/clemenko/fleet
+  repo: https://github.com/clemenko/fleet.git
   targetNamespace: aws
   targets:
   - clusterName: local
   paths:
-  - template
-  targets:
-    - clusterSelector:
-        matchExpressions:
-          - key: provider.cattle.io
-            operator: NotIn
-            values:
-              - harvester
+  - "./template"
