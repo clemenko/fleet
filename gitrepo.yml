@@ -47,7 +47,7 @@ metadata:
   namespace: fleet-local
 spec:
   branch: main
-  repo: https://github.com/clemenko/fleet.git
+  repo: https://github.com/clemenko/fleet
   targetNamespace: aws
   targets:
   - clusterName: local
