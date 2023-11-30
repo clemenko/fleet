@@ -1,4 +1,4 @@
-defaultNamespace: aws
+defaultNamespace: fleet-default
 helm:
   repo: https://rancherfederal.github.io/rancher-cluster-templates
   chart: cluster-template
