@@ -6,7 +6,7 @@ rancher:
 cluster:
   annotations: {}
   labels: {}
-  name: aws-rke2-cluster
+  name: dev-aws
   config:
     systemDefaultRegistry: docker.io
     kubernetesVersion: v1.26.10+rke2r2
