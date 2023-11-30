@@ -2,7 +2,7 @@ defaultNamespace: aws
 helm:
   repo: https://rancherfederal.github.io/rancher-cluster-templates
   chart: cluster-template
-  version: 0.2.0
+  version: 0.3.0
   releaseName: cluster-templates
   valuesFiles:
     - values-aws.yaml
