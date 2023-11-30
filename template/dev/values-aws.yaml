@@ -72,7 +72,7 @@ nodepools:
     worker: true
     labels: {}
     taints: {}
-    quantity: 3
+    quantity: 1
     paused: false
     ami: ami-05a5f6298acdb05b6 # rocky ami-09c77dc92e45bc3ea  # optional: replace with your ami id
     deviceName: /dev/sda1
@@ -80,7 +80,7 @@ nodepools:
     endpoint: ''
     iamInstanceProfile: 'iam-profile' # required: replace with your iam instance profile name
     insecureTransport: false
-    instanceType: m6a.2xlarge
+    instanceType: m6a.xlarge
     region: us-east-1
     createSecurityGroup: false
     securityGroups: ['default'] # required: replace with your security group name
@@ -219,7 +219,7 @@ nodepools:
     worker: true
     labels: {}
     taints: {}
-    quantity: 3
+    quantity: 2
     paused: false
     ami: ami-05a5f6298acdb05b6 # rocky ami-09c77dc92e45bc3ea  # optional: replace with your ami id
     deviceName: /dev/sda1
@@ -227,7 +227,7 @@ nodepools:
     endpoint: ''
     iamInstanceProfile: 'iam-profile' # required: replace with your iam instance profile name
     insecureTransport: false
-    instanceType: m6a.2xlarge
+    instanceType: m6a.xlarge
     region: us-east-1
     createSecurityGroup: false
     securityGroups: ['default'] # required: replace with your security group name
