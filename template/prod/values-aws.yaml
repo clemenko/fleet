@@ -66,7 +66,7 @@ cluster:
 
 
 nodepools:
-  - name: control-plane-nodes
+  - name: control-plane-nodes-prod
     etcd: true
     controlplane: true
     worker: true
@@ -213,7 +213,7 @@ nodepools:
       - sudo echo -e "[keyfile]\nunmanaged-devices=interface-name:cali*;interface-name:flannel*" > /etc/NetworkManager/conf.d/rke2-canal.conf
       - sudo mkdir -p /opt/rke2-artifacts/ /etc/rancher/rke2/ /var/lib/rancher/rke2/server/manifests/
       - sudo useradd -r -c "etcd user" -s /sbin/nologin -M etcd -U
-  - name: worker-nodes
+  - name: worker-nodes-prod
     etcd: false
     controlplane: false
     worker: true
