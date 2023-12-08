@@ -71,7 +71,7 @@ nodepools:
     controlplane: true
     worker: true
     labels: {}
-    taints: {}
+    taints: ""
     quantity: 1
     paused: false
     ami: ami-05a5f6298acdb05b6 # rocky ami-09c77dc92e45bc3ea  # optional: replace with your ami id
@@ -218,7 +218,7 @@ nodepools:
     controlplane: false
     worker: true
     labels: {}
-    taints: {}
+    taints: ""
     quantity: 2
     paused: false
     ami: ami-05a5f6298acdb05b6 # rocky ami-09c77dc92e45bc3ea  # optional: replace with your ami id
