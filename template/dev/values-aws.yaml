@@ -1,5 +1,5 @@
 cloudprovider: amazonec2
-cloudCredentialSecretName: amazonec2credential 
+cloudCredentialSecretName: awscred 
 rancher:
   cattle:
     url: rancher.rfed.io
