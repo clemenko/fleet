@@ -1,45 +1,56 @@
-cloudprovider: amazonec2
-cloudCredentialSecretName: awscred 
+# amazonec2, azure, digitalocean, harvester, vsphere, custom
+cloudprovider: digitalocean
+
+# cloud provider credentials (example: aws-creds)
+cloudCredentialSecretName: docreds
+
+# rancher manager url
 rancher:
   cattle:
-    url: rancher.rfed.io
+    url: rancher.rfed.io # required (example: rancher.example.com)
+
+# cluster values
 cluster:
-  annotations: {}
-  labels: {}
-  name: dev-aws
+  # annotations:
+    # key: value
+  # labels:
+    # key: value
+  name: rke2-cluster-do
   config:
-    systemDefaultRegistry: docker.io
-    kubernetesVersion: v1.26.11+rke2r1
+    systemDefaultRegistry: rgcrprod.azurecr.us # default registry
+    kubernetesVersion: v1.26.11+rke2r1 # https://github.com/rancher/rke2/releases
     localClusterAuthEndpoint:
       enabled: false
-    cni: canal
+    # agentEnvVars:
+      # - key:value
+    cni: canal # canal, calico, cilium, multus,canal, multus,calico, multus,cilium
     docker: false
     disable_kube_proxy: false
     etcd_expose_metrics: false
-    profile: cis-1.23
+    profile: cis-1.23 # cis-1.6, cis-1.23
     selinux: true
     secrets_encryption: true
     write_kubeconfig_mode: 0640
     use_service_account_credentials: true
     protect_kernel_defaults: true
-    kube_controller_manager_arg:
+    kube_controller_manager_arg: # (https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager)
       - bind-address=127.0.0.1
       - use-service-account-credentials=true
       - tls-min-version=VersionTLS12
       - tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
-    kube_scheduler_arg:
+    kube_scheduler_arg: # (https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler)
       - tls-min-version=VersionTLS12
       - tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
-    kube_apiserver_arg:
+    kube_apiserver_arg: # (https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver)
       - tls-min-version=VersionTLS12
       - tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
       - authorization-mode=RBAC,Node
       - anonymous-auth=false
+      - admission-control-config-file=/etc/rancher/rke2/rancher-pss.yaml
       - audit-policy-file=/etc/rancher/rke2/audit-policy.yaml
       - audit-log-mode=blocking-strict
       - audit-log-maxage=30
-      - admission-control-config-file=/etc/rancher/rke2/rancher-pss.yaml
-    kubelet_arg:
+    kubelet_arg: # (https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet)
       - protect-kernel-defaults=true
       - read-only-port=0
       - authorization-mode=Webhook
@@ -48,7 +59,7 @@ cluster:
       enabled: true
       configs:
         - name: rgcrprod.azurecr.us
-          authConfigSecretName: carbidecredential
+          authConfigSecretName: registry-creds
           caBundle: ''
           insecureSkipVerify: false
           tlsSecretName: ''
@@ -60,46 +71,51 @@ cluster:
       controlPlaneConcurrency: 10%
       controlPlaneDrainOptions:
         enabled: false
+        # deleteEmptyDirData: true
+        # disableEviction: false
+        # force: false
+        # gracePeriod: -1
+        # ignoreDaemonSets: true
+        # ignoreErrors: false
+        # skipWaitForDeleteTimeoutSeconds: 0
+        # timeout: 120
       workerConcurrency: 10%
       workerDrainOptions:
         enabled: false
+        # deleteEmptyDirData: true
+        # disableEviction: false
+        # force: false
+        # gracePeriod: -1
+        # ignoreDaemonSets: true
+        # ignoreErrors: false
+        # skipWaitForDeleteTimeoutSeconds: 0
+        # timeout: 120
 
-
+# node and nodepool(s) values
 nodepools:
-  - name: control-plane-nodes-dev
+  - name: control-plane-nodes
+    quantity: 1
     etcd: true
     controlplane: true
-    worker: true
-    labels: {}
-    taints: {}
-    quantity: 1
+    worker: false
+    # labels:
+      # key: value
+    # taints:
+      # key: value
     paused: false
-    ami: ami-05a5f6298acdb05b6 # rocky ami-09c77dc92e45bc3ea  # optional: replace with your ami id
-    deviceName: /dev/sda1
-    encryptEbsVolume: false
-    endpoint: ''
-    iamInstanceProfile: 'iam-profile' # required: replace with your iam instance profile name
-    insecureTransport: false
-    instanceType: m6a.xlarge
-    region: us-east-1
-    createSecurityGroup: false
-    securityGroups: ['default'] # required: replace with your security group name
-    keypairName: ''
-    securityGroupReadonly: false
-    sshKeyContents: ''
-    subnetId: subnet-0a798890114529bf6 # required: replace with your subnet id
-    zone: b
+    # accessToken: '' # only needed if not using cloudCredentialSecretName
+    backups: false
+    image: rockylinux-9-x64 # required (example: rockylinux-9-x64)
+    ipv6: false
     monitoring: false
-    privateAddressOnly: false
-    requestSpotInstance: false
-    tags: provisioner,rancher,KeepRunning,true
-    retries: 5
-    rootSize: 80
-    sshUser: ec2-user
-    volumeType: gp3
-    vpcId: vpc-0a41666752f70473d # required: replace with your vpc id
-    useEbsOptimizedInstance: false
-    usePrivateAddress: false
+    privateNetworking: false
+    region: nyc3 # required (example: nyc3)
+    size: s-4vcpu-8gb # required (example: s-4vcpu-8gb)
+    # sshKeyContents: ''
+    # sshKeyFingerprint: ''
+    # sshPort: 22
+    sshUser: root # required (example: rocky)
+    # tags: ''
     userdata: |
       #cloud-config
       packages:
@@ -222,42 +238,30 @@ nodepools:
       - sudo echo -e "[keyfile]\nunmanaged-devices=interface-name:cali*;interface-name:flannel*" > /etc/NetworkManager/conf.d/rke2-canal.conf
       - sudo mkdir -p /etc/rancher/rke2/ /var/lib/rancher/rke2/server/manifests/
       - sudo useradd -r -c "etcd user" -s /sbin/nologin -M etcd -U
-      - sudo systemctl stop firewalld; systemctl disable firewalld; systemctl stop nm-cloud-setup; systemctl disable nm-cloud-setup; systemctl stop nm-cloud-setup.timer; systemctl disable nm-cloud-setup.timer
-  - name: worker-nodes-dev
+  - name: worker-nodes
+    quantity: 1
     etcd: false
     controlplane: false
     worker: true
-    labels: {}
-    taints: {}
-    quantity: 2
+    # labels:
+      # key: value
+    # taints:
+      # key: value
     paused: false
-    ami: ami-05a5f6298acdb05b6 # rocky ami-09c77dc92e45bc3ea  # optional: replace with your ami id
-    deviceName: /dev/sda1
-    encryptEbsVolume: false
-    endpoint: ''
-    iamInstanceProfile: 'iam-profile' # required: replace with your iam instance profile name
-    insecureTransport: false
-    instanceType: m6a.xlarge
-    region: us-east-1
-    createSecurityGroup: false
-    securityGroups: ['default'] # required: replace with your security group name
-    keypairName: '' # adding key
-    securityGroupReadonly: false
-    sshKeyContents: ''
-    subnetId: subnet-0a798890114529bf6 # required: replace with your subnet id
-    zone: b
+    # accessToken: '' # only needed if not using cloudCredentialSecretName
+    backups: false
+    image: rockylinux-9-x64 # required (example: rockylinux-9-x64)
+    ipv6: false
     monitoring: false
-    privateAddressOnly: false
-    requestSpotInstance: false
-    tags: provisioner,rancher,KeepRunning,true
-    retries: 5
-    rootSize: 80
-    sshUser: ec2-user
-    volumeType: gp3
-    vpcId: vpc-0a41666752f70473d # required: replace with your vpc id
-    useEbsOptimizedInstance: false
-    usePrivateAddress: false
-    userdata: |
+    privateNetworking: false
+    region: nyc3 # required (example: nyc3)
+    size: s-4vcpu-8gb  # required (example: s-4vcpu-8gb)
+    # sshKeyContents: ''
+    # sshKeyFingerprint: ''
+    # sshPort: 22
+    sshUser: root # required (example: rocky)
+    # tags: ''
+    userData: |
       #cloud-config
       packages:
       - iptables
@@ -310,33 +314,20 @@ nodepools:
       - sudo yum install -y https://github.com/rancher/rke2-selinux/releases/download/v0.17.stable.1/rke2-selinux-0.17-1.el9.noarch.rpm 
       - sudo echo -e "[keyfile]\nunmanaged-devices=interface-name:cali*;interface-name:flannel*" > /etc/NetworkManager/conf.d/rke2-canal.conf
       - sudo mkdir -p /etc/rancher/rke2/
-      - sudo systemctl stop firewalld; systemctl disable firewalld; systemctl stop nm-cloud-setup; systemctl disable nm-cloud-setup; systemctl stop nm-cloud-setup.timer; systemctl disable nm-cloud-setup.timer
+# addons values
 addons:
   monitoring:
-    enabled: true
-    values:
-      global:
-        cattle:
-          systemDefaultRegistry: rgcrprod.azurecr.us
+    enabled: false
+    # version:
+    # values:
+      # values here
   longhorn:
     enabled: false
-    values:
-      global:
-        cattle:
-          systemDefaultRegistry: rgcrprod.azurecr.us
+    # version:
+    # values:
+      # values here
   neuvector:
     enabled: false
-    values:
-      global:
-        cattle:
-          url: https://rancher.ranchers.io
-          systemDefaultRegistry: rgcrprod.azurecr.us
-      controller:
-        ranchersso:
-          enabled: true
-      k3s:
-        enabled: true
-      manager:
-        svc:
-          type: ClusterIP
-      rbac: true
+    # version:
+    # values:
+      # values here
