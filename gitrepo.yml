@@ -43,7 +43,7 @@ spec:
 kind: GitRepo
 apiVersion: fleet.cattle.io/v1alpha1
 metadata:
-  name: aws
+  name: downstreams
   namespace: fleet-local
 spec:
   branch: main

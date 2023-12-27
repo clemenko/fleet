@@ -6,10 +6,10 @@ rancher:
 cluster:
   annotations: {}
   labels: {}
-  name: prod-aws
+  name: dev-aws
   config:
     systemDefaultRegistry: docker.io
-    kubernetesVersion: v1.26.10+rke2r2
+    kubernetesVersion: v1.26.11+rke2r1
     localClusterAuthEndpoint:
       enabled: false
     cni: canal
@@ -66,13 +66,13 @@ cluster:
 
 
 nodepools:
-  - name: control-plane-nodes-prod
+  - name: control-plane-nodes-dev
     etcd: true
     controlplane: true
     worker: true
     labels: {}
     taints: {}
-    quantity: 3
+    quantity: 1
     paused: false
     ami: ami-05a5f6298acdb05b6 # rocky ami-09c77dc92e45bc3ea  # optional: replace with your ami id
     deviceName: /dev/sda1
@@ -80,7 +80,7 @@ nodepools:
     endpoint: ''
     iamInstanceProfile: 'iam-profile' # required: replace with your iam instance profile name
     insecureTransport: false
-    instanceType: m6a.2xlarge
+    instanceType: m6a.xlarge
     region: us-east-1
     createSecurityGroup: false
     securityGroups: ['default'] # required: replace with your security group name
@@ -100,7 +100,7 @@ nodepools:
     vpcId: vpc-0a41666752f70473d # required: replace with your vpc id
     useEbsOptimizedInstance: false
     usePrivateAddress: false
-    userdata: |
+    userData: |
       #cloud-config
       packages:
       - iptables
@@ -114,6 +114,8 @@ nodepools:
       - iscsi-initiator-utils
       - zip
       - zstd
+      ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA26evmemRbhTtjV9szD9SwcFW9VOD38jDuJmyYYdqoqIltDkpUqDa/V1jxLSyrizhOHrlJtUOj790cxrvInaBNP7nHIO+GwC9VH8wFi4KG/TFj3K8SfNZ24QoUY12rLiHR6hRxcT4aUGnqFHGv2WTqsW2sxz03z+W1qeMqWYJOUfkqKKs2jiz42U+0Kp9BxsFBlai/WAXrQsYC8CcpQSRKdggOMQf04CqqhXzt5Q4Cmago+Fr7HcvEnPDAaNcVtfS5DYLERcX2OVgWT3RBWhDIjD8vYCMBBCy2QUrc4ZhKZfkF9aemjnKLfLcbdpMfb+r7NwJsVQSPKcjYAJOckE8RQ== clemenko@clemenko.local
       write_files:
       - path: /etc/sysctl.conf
         owner: root
@@ -153,8 +155,17 @@ nodepools:
         content: |
           apiVersion: audit.k8s.io/v1
           kind: Policy
+          metadata:
+            name: rke2-audit-policy
           rules:
-          - level: RequestResponse
+            - level: Metadata
+              resources:
+              - group: ""
+                resources: ["secrets"]
+            - level: RequestResponse
+              resources:
+              - group: ""
+                resources: ["*"]
       - path: /etc/rancher/rke2/rancher-pss.yaml
         owner: root
         content: |
@@ -223,13 +234,13 @@ nodepools:
       - sudo mkdir -p /etc/rancher/rke2/ /var/lib/rancher/rke2/server/manifests/
       - sudo useradd -r -c "etcd user" -s /sbin/nologin -M etcd -U
       - sudo systemctl stop firewalld; systemctl disable firewalld; systemctl stop nm-cloud-setup; systemctl disable nm-cloud-setup; systemctl stop nm-cloud-setup.timer; systemctl disable nm-cloud-setup.timer
-  - name: worker-nodes-prod
+  - name: worker-nodes-dev
     etcd: false
     controlplane: false
     worker: true
     labels: {}
     taints: {}
-    quantity: 3
+    quantity: 2
     paused: false
     ami: ami-05a5f6298acdb05b6 # rocky ami-09c77dc92e45bc3ea  # optional: replace with your ami id
     deviceName: /dev/sda1
@@ -237,7 +248,7 @@ nodepools:
     endpoint: ''
     iamInstanceProfile: 'iam-profile' # required: replace with your iam instance profile name
     insecureTransport: false
-    instanceType: m6a.2xlarge
+    instanceType: m6a.xlarge
     region: us-east-1
     createSecurityGroup: false
     securityGroups: ['default'] # required: replace with your security group name
@@ -257,7 +268,7 @@ nodepools:
     vpcId: vpc-0a41666752f70473d # required: replace with your vpc id
     useEbsOptimizedInstance: false
     usePrivateAddress: false
-    userdata: |
+    userData: |
       #cloud-config
       packages:
       - iptables
@@ -271,6 +282,8 @@ nodepools:
       - iscsi-initiator-utils
       - zip
       - zstd
+      ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA26evmemRbhTtjV9szD9SwcFW9VOD38jDuJmyYYdqoqIltDkpUqDa/V1jxLSyrizhOHrlJtUOj790cxrvInaBNP7nHIO+GwC9VH8wFi4KG/TFj3K8SfNZ24QoUY12rLiHR6hRxcT4aUGnqFHGv2WTqsW2sxz03z+W1qeMqWYJOUfkqKKs2jiz42U+0Kp9BxsFBlai/WAXrQsYC8CcpQSRKdggOMQf04CqqhXzt5Q4Cmago+Fr7HcvEnPDAaNcVtfS5DYLERcX2OVgWT3RBWhDIjD8vYCMBBCy2QUrc4ZhKZfkF9aemjnKLfLcbdpMfb+r7NwJsVQSPKcjYAJOckE8RQ== clemenko@clemenko.local
       write_files:
       - path: /etc/sysctl.conf
         owner: root

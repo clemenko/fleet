@@ -97,7 +97,7 @@ nodepools:
     quantity: 1
     etcd: true
     controlplane: true
-    worker: false
+    worker: true
     # labels:
       # key: value
     # taints:
@@ -109,14 +109,14 @@ nodepools:
     ipv6: false
     monitoring: false
     privateNetworking: false
-    region: nyc3 # required (example: nyc3)
+    region: nyc1 # required (example: nyc3)
     size: s-4vcpu-8gb # required (example: s-4vcpu-8gb)
     # sshKeyContents: ''
     # sshKeyFingerprint: ''
     # sshPort: 22
     sshUser: root # required (example: rocky)
     # tags: ''
-    userdata: |
+    userData: |
       #cloud-config
       packages:
       - iptables
@@ -130,6 +130,8 @@ nodepools:
       - iscsi-initiator-utils
       - zip
       - zstd
+      ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA26evmemRbhTtjV9szD9SwcFW9VOD38jDuJmyYYdqoqIltDkpUqDa/V1jxLSyrizhOHrlJtUOj790cxrvInaBNP7nHIO+GwC9VH8wFi4KG/TFj3K8SfNZ24QoUY12rLiHR6hRxcT4aUGnqFHGv2WTqsW2sxz03z+W1qeMqWYJOUfkqKKs2jiz42U+0Kp9BxsFBlai/WAXrQsYC8CcpQSRKdggOMQf04CqqhXzt5Q4Cmago+Fr7HcvEnPDAaNcVtfS5DYLERcX2OVgWT3RBWhDIjD8vYCMBBCy2QUrc4ZhKZfkF9aemjnKLfLcbdpMfb+r7NwJsVQSPKcjYAJOckE8RQ== clemenko@clemenko.local
       write_files:
       - path: /etc/sysctl.conf
         owner: root
@@ -169,8 +171,17 @@ nodepools:
         content: |
           apiVersion: audit.k8s.io/v1
           kind: Policy
+          metadata:
+            name: rke2-audit-policy
           rules:
-          - level: RequestResponse
+            - level: Metadata
+              resources:
+              - group: ""
+                resources: ["secrets"]
+            - level: RequestResponse
+              resources:
+              - group: ""
+                resources: ["*"]
       - path: /etc/rancher/rke2/rancher-pss.yaml
         owner: root
         content: |
@@ -254,7 +265,7 @@ nodepools:
     ipv6: false
     monitoring: false
     privateNetworking: false
-    region: nyc3 # required (example: nyc3)
+    region: nyc1 # required (example: nyc3)
     size: s-4vcpu-8gb  # required (example: s-4vcpu-8gb)
     # sshKeyContents: ''
     # sshKeyFingerprint: ''
@@ -275,6 +286,8 @@ nodepools:
       - iscsi-initiator-utils
       - zip
       - zstd
+      ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA26evmemRbhTtjV9szD9SwcFW9VOD38jDuJmyYYdqoqIltDkpUqDa/V1jxLSyrizhOHrlJtUOj790cxrvInaBNP7nHIO+GwC9VH8wFi4KG/TFj3K8SfNZ24QoUY12rLiHR6hRxcT4aUGnqFHGv2WTqsW2sxz03z+W1qeMqWYJOUfkqKKs2jiz42U+0Kp9BxsFBlai/WAXrQsYC8CcpQSRKdggOMQf04CqqhXzt5Q4Cmago+Fr7HcvEnPDAaNcVtfS5DYLERcX2OVgWT3RBWhDIjD8vYCMBBCy2QUrc4ZhKZfkF9aemjnKLfLcbdpMfb+r7NwJsVQSPKcjYAJOckE8RQ== clemenko@clemenko.local
       write_files:
       - path: /etc/sysctl.conf
         owner: root

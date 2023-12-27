@@ -5,4 +5,4 @@ helm:
   version: 0.4.0
   releaseName: cluster-template-prod
   valuesFiles:
-    - values-aws.yaml
+    - values-aws-prod.yaml
