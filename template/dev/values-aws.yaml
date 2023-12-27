@@ -101,7 +101,19 @@ nodepools:
     useEbsOptimizedInstance: false
     usePrivateAddress: false
     userdata: |
-      #cloud-config     
+      #cloud-config
+      packages:
+      - iptables
+      - container-selinux
+      - libnetfilter_conntrack
+      - libnfnetlink
+      - libnftnl
+      - policycoreutils-python-utils
+      - cryptsetup
+      - nfs-utils
+      - iscsi-initiator-utils
+      - zip
+      - zstd
       write_files:
       - path: /etc/sysctl.conf
         owner: root
@@ -206,12 +218,9 @@ nodepools:
                               tigera-operator]
       runcmd:
       - sudo sysctl -p > /dev/null 2>&1
-      - sudo yum install -y iptables container-selinux iptables libnetfilter_conntrack libnfnetlink libnftnl policycoreutils-python-utils cryptsetup nfs-utils iscsi-initiator-utils zip zstd tree jq https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
-      - sudo curl -#OL https://github.com/rancher/rke2-selinux/releases/download/v0.16.stable.1/rke2-selinux-0.16-1.el9.noarch.rpm && sudo rpm -i rke2-selinux-0.16-1.el9.noarch.rpm
-      - sudo echo "InitiatorName=$(/sbin/iscsi-iname)" > /etc/iscsi/initiatorname.iscsi && systemctl enable --now iscsid
-      - sudo systemctl stop firewalld; systemctl disable firewalld; systemctl stop nm-cloud-setup; systemctl disable nm-cloud-setup; systemctl stop nm-cloud-setup.timer; systemctl disable nm-cloud-setup.timer
+      - sudo yum install -y https://github.com/rancher/rke2-selinux/releases/download/v0.17.stable.1/rke2-selinux-0.17-1.el9.noarch.rpm 
       - sudo echo -e "[keyfile]\nunmanaged-devices=interface-name:cali*;interface-name:flannel*" > /etc/NetworkManager/conf.d/rke2-canal.conf
-      - sudo mkdir -p /opt/rke2-artifacts/ /etc/rancher/rke2/ /var/lib/rancher/rke2/server/manifests/
+      - sudo mkdir -p /etc/rancher/rke2/ /var/lib/rancher/rke2/server/manifests/
       - sudo useradd -r -c "etcd user" -s /sbin/nologin -M etcd -U
   - name: worker-nodes-dev
     etcd: false
@@ -248,7 +257,19 @@ nodepools:
     useEbsOptimizedInstance: false
     usePrivateAddress: false
     userdata: |
-      #cloud-config 
+      #cloud-config
+      packages:
+      - iptables
+      - container-selinux
+      - libnetfilter_conntrack
+      - libnfnetlink
+      - libnftnl
+      - policycoreutils-python-utils
+      - cryptsetup
+      - nfs-utils
+      - iscsi-initiator-utils
+      - zip
+      - zstd
       write_files:
       - path: /etc/sysctl.conf
         owner: root
@@ -285,13 +306,9 @@ nodepools:
           fs.inotify.max_user_watches=1048576
       runcmd:
       - sudo sysctl -p > /dev/null 2>&1
-      - sudo yum install -y iptables container-selinux iptables libnetfilter_conntrack libnfnetlink libnftnl policycoreutils-python-utils cryptsetup nfs-utils iscsi-initiator-utils zip zstd tree jq https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
-      - sudo curl -#OL https://github.com/rancher/rke2-selinux/releases/download/v0.16.stable.1/rke2-selinux-0.16-1.el9.noarch.rpm && sudo rpm -i rke2-selinux-0.16-1.el9.noarch.rpm
-      - sudo echo "InitiatorName=$(/sbin/iscsi-iname)" > /etc/iscsi/initiatorname.iscsi && systemctl enable --now iscsid
-      - sudo systemctl stop firewalld; systemctl disable firewalld; systemctl stop nm-cloud-setup; systemctl disable nm-cloud-setup; systemctl stop nm-cloud-setup.timer; systemctl disable nm-cloud-setup.timer
+      - sudo yum install -y https://github.com/rancher/rke2-selinux/releases/download/v0.17.stable.1/rke2-selinux-0.17-1.el9.noarch.rpm 
       - sudo echo -e "[keyfile]\nunmanaged-devices=interface-name:cali*;interface-name:flannel*" > /etc/NetworkManager/conf.d/rke2-canal.conf
       - sudo mkdir -p /etc/rancher/rke2/
-
 addons:
   monitoring:
     enabled: true
