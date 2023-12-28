@@ -18,7 +18,7 @@ cluster:
   name: rke2-cluster-do
   config:
     systemDefaultRegistry: rgcrprod.azurecr.us # default registry
-    kubernetesVersion: v1.26.11+rke2r1 # https://github.com/rancher/rke2/releases
+    kubernetesVersion: v1.26.12+rke2r1 # https://github.com/rancher/rke2/releases
     localClusterAuthEndpoint:
       enabled: false
     # agentEnvVars:
@@ -27,6 +27,7 @@ cluster:
     docker: false
     disable_kube_proxy: false
     etcd_expose_metrics: false
+    enableNetworkPolicy: true
     profile: cis-1.23 # cis-1.6, cis-1.23
     selinux: true
     secrets_encryption: true
@@ -59,7 +60,7 @@ cluster:
       enabled: true
       configs:
         - name: rgcrprod.azurecr.us
-          authConfigSecretName: registry-creds
+          authConfigSecretName: carbidecredential
           caBundle: ''
           insecureSkipVerify: false
           tlsSecretName: ''
@@ -109,7 +110,7 @@ nodepools:
     ipv6: false
     monitoring: false
     privateNetworking: false
-    region: nyc1 # required (example: nyc3)
+    region: nyc3 # required (example: nyc3)
     size: s-4vcpu-8gb # required (example: s-4vcpu-8gb)
     # sshKeyContents: ''
     # sshKeyFingerprint: ''
@@ -250,7 +251,7 @@ nodepools:
       - sudo mkdir -p /etc/rancher/rke2/ /var/lib/rancher/rke2/server/manifests/
       - sudo useradd -r -c "etcd user" -s /sbin/nologin -M etcd -U
   - name: worker-nodes
-    quantity: 1
+    quantity: 2
     etcd: false
     controlplane: false
     worker: true
