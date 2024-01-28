@@ -8,7 +8,7 @@ cluster:
   labels: {}
   name: dev-aws
   config:
-    systemDefaultRegistry: docker.io
+    systemDefaultRegistry: rgcrprod.azurecr.us
     kubernetesVersion: v1.26.11+rke2r1
     localClusterAuthEndpoint:
       enabled: false
@@ -50,7 +50,7 @@ cluster:
         - name: rgcrprod.azurecr.us
           authConfigSecretName: carbidecredential
           caBundle: ''
-          insecureSkipVerify: false
+          insecureSkipVerify: true
           tlsSecretName: ''
 #      mirrors:
 #        - name: docker.io
@@ -63,7 +63,6 @@ cluster:
       workerConcurrency: 10%
       workerDrainOptions:
         enabled: false
-
 
 nodepools:
   - name: control-plane-nodes-dev
