@@ -9,7 +9,7 @@ cluster:
   name: dev-aws
   config:
     systemDefaultRegistry: rgcrprod.azurecr.us
-    kubernetesVersion: v1.26.11+rke2r1
+    kubernetesVersion: v1.27.10+rke2r1
     localClusterAuthEndpoint:
       enabled: false
     cni: canal
