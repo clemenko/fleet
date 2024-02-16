@@ -19,6 +19,7 @@ cluster:
     profile: cis-1.23
     selinux: true
     secrets_encryption: true
+    tls-san: 'something.rfed.io'
     write_kubeconfig_mode: 0640
     use_service_account_credentials: true
     protect_kernel_defaults: true
@@ -323,32 +324,32 @@ nodepools:
       - sudo echo -e "[keyfile]\nunmanaged-devices=interface-name:cali*;interface-name:flannel*" > /etc/NetworkManager/conf.d/rke2-canal.conf
       - sudo mkdir -p /etc/rancher/rke2/
       - sudo systemctl stop firewalld; systemctl disable firewalld; systemctl stop nm-cloud-setup; systemctl disable nm-cloud-setup; systemctl stop nm-cloud-setup.timer; systemctl disable nm-cloud-setup.timer
-addons:
-  monitoring:
-    enabled: true
-    values:
-      global:
-        cattle:
-          systemDefaultRegistry: rgcrprod.azurecr.us
-  longhorn:
-    enabled: false
-    values:
-      global:
-        cattle:
-          systemDefaultRegistry: rgcrprod.azurecr.us
-  neuvector:
-    enabled: false
-    values:
-      global:
-        cattle:
-          url: https://rancher.ranchers.io
-          systemDefaultRegistry: rgcrprod.azurecr.us
-      controller:
-        ranchersso:
-          enabled: true
-      k3s:
-        enabled: true
-      manager:
-        svc:
-          type: ClusterIP
-      rbac: true
+#addons:
+#  monitoring:
+#    enabled: true
+#    values:
+#      global:
+#        cattle:
+#          systemDefaultRegistry: rgcrprod.azurecr.us
+#  longhorn:
+#    enabled: false
+#    values:
+#      global:
+#        cattle:
+#          systemDefaultRegistry: rgcrprod.azurecr.us
+#  neuvector:
+#    enabled: false
+#    values:
+#      global:
+#        cattle:
+#          url: https://rancher.ranchers.io
+#          systemDefaultRegistry: rgcrprod.azurecr.us
+#      controller:
+#        ranchersso:
+#          enabled: true
+#      k3s:
+#        enabled: true
+#      manager:
+#        svc:
+#          type: ClusterIP
+#      rbac: true
