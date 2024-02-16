@@ -19,7 +19,7 @@ cluster:
     profile: cis-1.23
     selinux: true
     secrets_encryption: true
-    tls-san: 'something.rfed.io'
+    tls-san: something.rfed.io
     write_kubeconfig_mode: 0640
     use_service_account_credentials: true
     protect_kernel_defaults: true
