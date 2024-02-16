@@ -1,7 +1,8 @@
 defaultNamespace: fleet-default
 helm:
-  repo: https://github.com/clemenko/rancher-cluster-templates
+  repo: https://rancherfederal.github.io/rancher-cluster-templates
   chart: rancher-cluster-templates
+#  version: 0.4.2
   releaseName: cluster-template-dev
   valuesFiles:
     - values-aws-dev.yaml
