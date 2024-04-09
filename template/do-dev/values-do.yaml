@@ -23,7 +23,7 @@ cluster:
       enabled: false
     # agentEnvVars:
       # - key:value
-    cni: canal # canal, calico, cilium, multus,canal, multus,calico, multus,cilium
+    cni: multus,canal
     docker: false
     disable_kube_proxy: false
     etcd_expose_metrics: false
