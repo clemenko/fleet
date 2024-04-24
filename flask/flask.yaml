@@ -29,7 +29,7 @@ spec:
         #command: [ "/bin/sh", "-c", "sleep 3003003240204242" ]
         ports:
         - containerPort: 5000
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
 ---
 apiVersion: apps/v1
 kind: Deployment
