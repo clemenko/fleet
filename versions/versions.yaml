@@ -19,6 +19,8 @@ spec:
       containers:
       - name: versions
         image: clemenko/dzver
+        securityContext:
+          allowPrivilegeEscalation: false
         ports:
         - containerPort: 5000
 ---
