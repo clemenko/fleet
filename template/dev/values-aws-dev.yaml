@@ -82,7 +82,7 @@ nodepools:
     encryptEbsVolume: false
     endpoint: ''
     iamInstanceProfile: 'iam-profile' # required: replace with your iam instance profile name
-    insecureTransport: false
+    insecureTransport: true
     instanceType: m6a.xlarge
     region: us-east-1
     createSecurityGroup: false
@@ -250,7 +250,7 @@ nodepools:
     encryptEbsVolume: false
     endpoint: ''
     iamInstanceProfile: 'iam-profile' # required: replace with your iam instance profile name
-    insecureTransport: false
+    insecureTransport: true
     instanceType: m6a.xlarge
     region: us-east-1
     createSecurityGroup: false
