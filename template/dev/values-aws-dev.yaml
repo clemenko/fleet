@@ -8,45 +8,48 @@ cluster:
   labels: {}
   name: dev-aws
   config:
-    systemDefaultRegistry: rgcrprod.azurecr.us
-    kubernetesVersion: v1.27.10+rke2r1
+    kubernetesVersion: v1.28.8+rke2r1
+    enableNetworkPolicy: true
     localClusterAuthEndpoint:
       enabled: false
-    cni: canal
-    docker: false
-    disable_kube_proxy: false
-    etcd_expose_metrics: false
-    profile: cis-1.23
-    selinux: true
-    secrets_encryption: true
-    tls-san: something.rfed.io
-    write_kubeconfig_mode: 0640
-    use_service_account_credentials: true
-    protect_kernel_defaults: true
-    kube_controller_manager_arg:
-      - bind-address=127.0.0.1
-      - use-service-account-credentials=true
-      - tls-min-version=VersionTLS12
-      - tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
-    kube_scheduler_arg:
-      - tls-min-version=VersionTLS12
-      - tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
-    kube_apiserver_arg:
-      - tls-min-version=VersionTLS12
-      - tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
-      - authorization-mode=RBAC,Node
-      - anonymous-auth=false
-      - audit-policy-file=/etc/rancher/rke2/audit-policy.yaml
-      - audit-log-mode=blocking-strict
-      - audit-log-maxage=30
-      - admission-control-config-file=/etc/rancher/rke2/rancher-pss.yaml
-    kubelet_arg:
-      - protect-kernel-defaults=true
-      - read-only-port=0
-      - authorization-mode=Webhook
-      - streaming-connection-idle-timeout=5m
+    globalConfig:
+      systemDefaultRegistry: docker.io #rgcrprod.azurecr.us
+      cni: canal
+      docker: false
+      disable_kube_proxy: false
+      etcd_expose_metrics: false
+      profile: '' #cis-1.23
+      selinux: false
+      secrets_encryption: true
+      tls-san: something.rfed.io
+      write_kubeconfig_mode: 0640
+      use_service_account_credentials: true
+      protect_kernel_defaults: true
+      cloud_provider_name: ''
+      kube_controller_manager_arg:
+        - bind-address=127.0.0.1
+        - use-service-account-credentials=true
+        - tls-min-version=VersionTLS12
+        - tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+      kube_scheduler_arg:
+        - tls-min-version=VersionTLS12
+        - tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+      kube_apiserver_arg:
+        - tls-min-version=VersionTLS12
+        - tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+        - authorization-mode=RBAC,Node
+        - anonymous-auth=false
+        - audit-policy-file=/etc/rancher/rke2/audit-policy.yaml
+        - audit-log-mode=blocking-strict
+        - audit-log-maxage=30
+        - admission-control-config-file=/etc/rancher/rke2/rancher-pss.yaml
+      kubelet_arg:
+        - protect-kernel-defaults=true
+        - read-only-port=0
+        - authorization-mode=Webhook
+        - streaming-connection-idle-timeout=5m
     registries:
-      enabled: true
+      enabled: false
       configs:
         - name: rgcrprod.azurecr.us
           authConfigSecretName: carbidecredential

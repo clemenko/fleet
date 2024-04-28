@@ -1,0 +1,254 @@
+# be sure to add all "required" values...
+
+# amazonec2, azure, digitalocean, harvester, vsphere, custom
+cloudprovider: amazonec2
+
+# cloud provider credentials (example: aws-creds)
+cloudCredentialSecretName: aws-creds
+
+# rancher manager url
+rancher:
+  cattle:
+    url: # required (example: rancher.example.com)
+
+# cluster values
+cluster:
+  # annotations:
+    # key: value
+  # labels:
+    # key: value
+  name: rke2-cluster-aws
+  config:
+    kubernetesVersion: v1.27.12+rke2r1 # https://github.com/rancher/rke2/releases
+    enableNetworkPolicy: true
+    localClusterAuthEndpoint:
+      enabled: false
+    # agentEnvVars:
+      # - key:value
+    # defaultClusterRoleForProjectMembers: ''
+    # defaultPodSecurityAdmissionConfigurationTemplateName: ''
+    # defaultPodSecurityPolicyTemplateName: ''
+    globalConfig:
+      systemDefaultRegistry: docker.io # default registry
+      cni: canal # canal, calico, cilium, multus,canal, multus,calico, multus,cilium
+      docker: false
+      # token: ''
+      # tls-san:
+        # - url
+        # - ip
+      # disable:
+        # - rke2-coredns
+        # - rke2-ingress-nginx
+        # - rke2-metrics-server
+      disable_scheduler: false
+      disable_cloud_controller: false
+      disable_kube_proxy: false
+      etcd_expose_metrics: false
+      profile: '' # cis-1.6, cis-1.23
+      selinux: false
+      secrets_encryption: false
+      write_kubeconfig_mode: 0600
+      use_service_account_credentials: false
+      protect_kernel_defaults: false
+      cloud_provider_name: '' # https://ranchermanager.docs.rancher.com/how-to-guides/new-user-guides/kubernetes-clusters-in-rancher-setup/set-up-cloud-providers
+      # cloud_provider_config: '' # cloud provider config secret here (example: secret://fleet-default:cloudprovider)
+      # kube_controller_manager_arg:
+        # - kube controller manager arguments here (https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager)
+      # kube_scheduler_arg:
+        # - kube scheduler arguments here (https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler)
+      # kube_apiserver_arg:
+        # - kube apiserver arguments here (https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver)
+      # kube_proxy_arg: # (https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy)
+        # - kube proxy arguments here
+      # kubelet_arg:
+        # - kubelet arguments here (https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet)
+    # controlPlaneConfig:
+      # same options as globalConfig
+      # only will apply to the control plane nodes
+    # workerConfig:
+      # same options as globalConfig
+      # only will apply to the worker nodes
+    registries:
+      enabled: false
+      # configs:
+        # - name: registry.example.com
+          # authConfigSecretName: registry-creds
+          # caBundle: ''
+          # insecureSkipVerify: false
+          # tlsSecretName: ''
+      # mirrors:
+        # - name: docker.io
+          # endpoints: ['registry.example.com']
+      # rewrite:
+         # "^rancher/(.*)": "mirrorproject/rancher-images/$1"
+    upgradeStrategy:
+      controlPlaneConcurrency: 10%
+      controlPlaneDrainOptions:
+        enabled: false
+        # deleteEmptyDirData: true
+        # disableEviction: false
+        # force: false
+        # gracePeriod: -1
+        # ignoreDaemonSets: true
+        # ignoreErrors: false
+        # skipWaitForDeleteTimeoutSeconds: 0
+        # timeout: 120
+      workerConcurrency: 10%
+      workerDrainOptions:
+        enabled: false
+        # deleteEmptyDirData: true
+        # disableEviction: false
+        # force: false
+        # gracePeriod: -1
+        # ignoreDaemonSets: true
+        # ignoreErrors: false
+        # skipWaitForDeleteTimeoutSeconds: 0
+        # timeout: 120
+
+# node and nodepool(s) values
+nodepools:
+  - name: control-plane-nodes
+    # displayName: cp-nodes
+    quantity: 3
+    etcd: true
+    controlplane: true
+    worker: false
+    # labels:
+      # key: value
+    # taints:
+      # effect: value
+      # key: value
+      # value: value
+    paused: false
+    # drainBeforeDelete: true
+    # drainBeforeDeleteTimeout: 30s
+    # unhealthyNodeTimeout: 60s
+    # machineDeploymentLabels:
+      # key: value
+    # machineDeploymentAnnotations:
+      # key: value
+    # rollingUpdate:
+      # maxUnavailable: 1
+      # maxSurge: 1
+    # accessKey: # only needed if not using cloudCredentialSecretName
+    # secretKey: # only needed if not using cloudCredentialSecretName
+    # sessionToken: # only needed if not using cloudCredentialSecretName
+    ami: # required (example: ami-123456789)
+    # blockDurationMinutes: 0
+    deviceName: /dev/sda1
+    encryptEbsVolume: false
+    # kmsKey: ''
+    endpoint: ''
+    # httpEndpoint: ''
+    # httpTokens: ''
+    iamInstanceProfile: # required (example: rancher-iam-instance-profile) - https://ranchermanager.docs.rancher.com/how-to-guides/new-user-guides/kubernetes-clusters-in-rancher-setup/set-up-cloud-providers/amazon
+    insecureTransport: false
+    instanceType: # required (example: m5.2xlarge)
+    region: # required (example: us-east-1)
+    createSecurityGroup: true
+    securityGroups: [''] # https://ranchermanager.docs.rancher.com/getting-started/installation-and-upgrade/installation-requirements/port-requirements
+    # openPort:
+    # - "80"
+    # - "443"
+    keypairName: ''
+    securityGroupReadonly: false
+    sshKeyContents: ''
+    subnetId: # required (example: subnet-123456789)
+    zone: # required (example: a)
+    monitoring: false
+    usePrivateAddress: false
+    privateAddressOnly: false
+    requestSpotInstance: false
+    # spotPrice: ''
+    # tags: ''
+    retries: 5
+    rootSize: 64
+    sshUser: ec2-user
+    volumeType: gp3
+    vpcId: # required (example: vpc-123456789)
+    useEbsOptimizedInstance: false
+    # userData: |
+      #cloud-config
+
+  - name: worker-nodes
+    # displayName: wk-nodes
+    quantity: 3
+    etcd: false
+    controlplane: false
+    worker: true
+    # labels:
+      # key: value
+    # taints:
+      # effect: value
+      # key: value
+      # value: value
+    paused: false
+    # drainBeforeDelete: true
+    # drainBeforeDeleteTimeout: 30s
+    # unhealthyNodeTimeout: 60s
+    # machineDeploymentLabels:
+      # key: value
+    # machineDeploymentAnnotations:
+      # key: value
+    # rollingUpdate:
+      # maxUnavailable: 1
+      # maxSurge: 1
+    # accessKey: '' # only needed if not using cloudCredentialSecretName
+    # secretKey: '' # only needed if not using cloudCredentialSecretName
+    # sessionToken: '' # only needed if not using cloudCredentialSecretName
+    ami: # required (example: ami-123456789)
+    # blockDurationMinutes: 0
+    deviceName: /dev/sda1
+    encryptEbsVolume: false
+    # kmsKey: ''
+    endpoint: ''
+    # httpEndpoint: ''
+    # httpTokens: ''
+    iamInstanceProfile: '' # (example: rancher-iam-instance-profile) - https://ranchermanager.docs.rancher.com/how-to-guides/new-user-guides/kubernetes-clusters-in-rancher-setup/set-up-cloud-providers/amazon
+    insecureTransport: false
+    instanceType: # required (example: m5.2xlarge)
+    region: # required (example: us-east-1)
+    createSecurityGroup: true
+    securityGroups: [''] # https://ranchermanager.docs.rancher.com/getting-started/installation-and-upgrade/installation-requirements/port-requirements
+    # openPort:
+    # - "80"
+    # - "443"
+    keypairName: ''
+    securityGroupReadonly: false
+    sshKeyContents: ''
+    subnetId: # required (example: subnet-123456789)
+    zone: # required (example: a)
+    monitoring: false
+    usePrivateAddress: false
+    privateAddressOnly: false
+    requestSpotInstance: false
+    # spotPrice: ''
+    # tags: ''
+    retries: 5
+    rootSize: 64
+    sshUser: ec2-user
+    volumeType: gp3
+    vpcId: # required (example: vpc-123456789)
+    useEbsOptimizedInstance: false
+    # userData: |
+      #cloud-config
+
+# addons values
+addons:
+  monitoring:
+    enabled: false
+    # version: 103.0.4+up45.31.1
+    # values:
+      # values here
+
+  longhorn:
+    enabled: false
+    # version: 103.2.2+up1.5.4
+    # values:
+      # values here
+
+  neuvector:
+    enabled: false
+    # version: 103.0.2+up2.7.3
+    # values:
+      # values here
