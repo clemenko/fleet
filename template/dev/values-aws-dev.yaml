@@ -8,7 +8,7 @@ cluster:
   labels: {}
   name: dev-aws
   config:
-    kubernetesVersion: v1.28.8+rke2r1
+    kubernetesVersion: v1.28.10+rke2r1
     enableNetworkPolicy: true
     localClusterAuthEndpoint:
       enabled: false
@@ -50,12 +50,12 @@ cluster:
         - streaming-connection-idle-timeout=5m
     registries:
       enabled: false
-      configs:
-        - name: rgcrprod.azurecr.us
-          authConfigSecretName: carbidecredential
-          caBundle: ''
-          insecureSkipVerify: true
-          tlsSecretName: ''
+#      configs:
+#        - name: rgcrprod.azurecr.us
+#          authConfigSecretName: carbidecredential
+#          caBundle: ''
+#          insecureSkipVerify: true
+#          tlsSecretName: ''
 #      mirrors:
 #        - name: docker.io
 #          endpoints:
@@ -229,7 +229,20 @@ nodepools:
                               longhorn-system,
                               rancher-alerting-drivers,
                               security-scan,
-                              tigera-operator]
+                              tigera-operator,
+                              neuvector,
+                              flask,
+                              ghost,
+                              kubecon,
+                              minio,
+                              whoami,
+                              harbor,
+                              gitea,
+                              tailscale,
+                              gitness,
+                              stackrox,
+                              keycloak,
+                              versions]
       runcmd:
       - sudo sysctl -p
       - sudo yum install -y https://github.com/rancher/rke2-selinux/releases/download/v0.17.stable.1/rke2-selinux-0.17-1.el9.noarch.rpm 
