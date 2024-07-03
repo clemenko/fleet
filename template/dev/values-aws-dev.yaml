@@ -8,7 +8,7 @@ cluster:
   labels: {}
   name: dev-aws
   config:
-    kubernetesVersion: v1.28.10+rke2r1
+    kubernetesVersion: v1.28.8+rke2r1
     enableNetworkPolicy: true
     localClusterAuthEndpoint:
       enabled: false
@@ -21,7 +21,7 @@ cluster:
       profile: '' #cis-1.23
       selinux: false
       secrets_encryption: true
-      tls-san: something.rfed.io
+      #tls-san: something.rfed.io
       write_kubeconfig_mode: 0640
       use_service_account_credentials: true
       protect_kernel_defaults: true
