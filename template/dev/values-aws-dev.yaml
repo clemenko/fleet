@@ -8,7 +8,7 @@ cluster:
   labels: {}
   name: dev-aws
   config:
-    kubernetesVersion: v1.28.11+rke2r1
+    kubernetesVersion: v1.28.8+rke2r1
     enableNetworkPolicy: true
     localClusterAuthEndpoint:
       enabled: false
