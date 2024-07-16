@@ -18,12 +18,12 @@ cluster:
   name: rke2-cluster-do
   config:
     systemDefaultRegistry: rgcrprod.azurecr.us # default registry
-    kubernetesVersion: v1.28.10+rke2r1 # https://github.com/rancher/rke2/releases
+    kubernetesVersion: v1.28.8+rke2r1 # https://github.com/rancher/rke2/releases
     localClusterAuthEndpoint:
       enabled: false
     # agentEnvVars:
       # - key:value
-    cni: multus,canal
+    cni: canal # multus,canal
     docker: false
     disable_kube_proxy: false
     etcd_expose_metrics: false
