@@ -6,3 +6,15 @@ helm:
   releaseName: cluster-template-do
   valuesFiles:
     - values-do.yaml
+
+diff:
+   comparePatches:
+   - apiVersion: provisioning.cattle.io/v1
+     kind: Cluster
+     namespace: fleet-default
+     name: dev-aws
+     operations:
+     - {"op": "remove", "path": "/spec/localClusterAuthEndpoint"}
+     - {"op": "remove", "path": "/spec/rkeConfig/machinePools"}
+     - {"op": "remove", "path": "/spec/rkeConfig/registries/configs/rgcrprod.azurecr.us"}
+     - {"op": "remove", "path": "/spec/rkeConfig/machineSelectorConfig"}
