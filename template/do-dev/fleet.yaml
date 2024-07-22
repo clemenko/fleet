@@ -12,7 +12,7 @@ diff:
    - apiVersion: provisioning.cattle.io/v1
      kind: Cluster
      namespace: fleet-default
-     name: rke2-cluster-do
+     name: digitalocean-dev
      operations:
      - {"op": "remove", "path": "/spec/localClusterAuthEndpoint"}
      - {"op": "remove", "path": "/spec/rkeConfig/machinePools"}

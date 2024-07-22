@@ -15,7 +15,7 @@ cluster:
     # key: value
   # labels:
     # key: value
-  name: rke2-cluster-do
+  name: digitalocean-dev
   config:
     systemDefaultRegistry: rgcrprod.azurecr.us # default registry
     kubernetesVersion: v1.28.8+rke2r1 # https://github.com/rancher/rke2/releases
