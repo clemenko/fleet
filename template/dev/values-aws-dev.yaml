@@ -83,7 +83,7 @@ nodepools:
     endpoint: ''
     iamInstanceProfile: 'iam-profile' # required: replace with your iam instance profile name
     insecureTransport: false
-    instanceType: m6a.2xlarge
+    instanceType: m6a.xlarge
     region: us-east-1
     createSecurityGroup: false
     securityGroups: ['default'] # required: replace with your security group name
@@ -264,7 +264,7 @@ nodepools:
     endpoint: ''
     iamInstanceProfile: 'iam-profile' # required: replace with your iam instance profile name
     insecureTransport: false
-    instanceType: m6a.2xlarge
+    instanceType: m6a.xlarge
     region: us-east-1
     createSecurityGroup: false
     securityGroups: ['default'] # required: replace with your security group name
