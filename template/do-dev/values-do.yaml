@@ -17,8 +17,8 @@ cluster:
     # key: value
   name: do-dev
   config:
-    systemDefaultRegistry: rgcrprod.azurecr.us # default registry
-    kubernetesVersion: v1.28.8+rke2r1 # https://github.com/rancher/rke2/releases
+#    systemDefaultRegistry: rgcrprod.azurecr.us # default registry
+    kubernetesVersion: v1.30.1+rke2r1 # https://github.com/rancher/rke2/releases
     localClusterAuthEndpoint:
       enabled: false
     # agentEnvVars:
@@ -28,7 +28,7 @@ cluster:
     disable_kube_proxy: false
     etcd_expose_metrics: false
     enableNetworkPolicy: true
-    profile: cis-1.23 # cis-1.6, cis-1.23
+    profile: cis
     selinux: true
     secrets_encryption: true
     write_kubeconfig_mode: 0640
@@ -106,7 +106,7 @@ nodepools:
     paused: false
     # accessToken: '' # only needed if not using cloudCredentialSecretName
     backups: false
-    image: rockylinux-9-x64 # required (example: rockylinux-9-x64)
+    image: ubuntu-24-04-x64 # required (example: rockylinux-9-x64)
     ipv6: false
     monitoring: false
     privateNetworking: false
