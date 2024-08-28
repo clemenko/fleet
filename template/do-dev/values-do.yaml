@@ -106,7 +106,7 @@ nodepools:
     paused: false
     # accessToken: '' # only needed if not using cloudCredentialSecretName
     backups: false
-    image: ubuntu-24-04-x64 # required (example: rockylinux-9-x64)
+    image: rockylinux-9-x64 # required (example: rockylinux-9-x64)
     ipv6: false
     monitoring: false
     privateNetworking: false
