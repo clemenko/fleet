@@ -30,21 +30,6 @@ spec:
 kind: GitRepo
 apiVersion: fleet.cattle.io/v1alpha1
 metadata:
-  name: ghost
-  namespace: fleet-local
-spec:
-  branch: main
-  insecureSkipTLSVerify: true
-  repo: https://git.rfed.io/gitea/fleet
-  targetNamespace: ghost
-  paths:
-  - ghost
-
----
-
-kind: GitRepo
-apiVersion: fleet.cattle.io/v1alpha1
-metadata:
   name: versions
   namespace: fleet-local
 spec:
