@@ -258,8 +258,9 @@ nodepools:
                               keycloak,
                               versions]
       runcmd:
+      - sudo yum update openssh -y
       - sudo sysctl -p
-      - sudo yum install -y https://github.com/rancher/rke2-selinux/releases/download/v0.17.stable.1/rke2-selinux-0.17-1.el9.noarch.rpm 
+      - sudo yum install -y https://github.com/rancher/rke2-selinux/releases/download/v0.18.stable.1/rke2-selinux-0.18-1.el9.noarch.rpm 
       - sudo echo -e "[keyfile]\nunmanaged-devices=interface-name:cali*;interface-name:flannel*" > /etc/NetworkManager/conf.d/rke2-canal.conf
       - sudo mkdir -p /etc/rancher/rke2/ /var/lib/rancher/rke2/server/manifests/
       - sudo useradd -r -c "etcd user" -s /sbin/nologin -M etcd -U
@@ -337,8 +338,9 @@ nodepools:
           fs.inotify.max_user_instances=8192
           fs.inotify.max_user_watches=1048576
       runcmd:
+      - sudo yum update openssh -y
       - sudo sysctl -p
-      - sudo yum install -y https://github.com/rancher/rke2-selinux/releases/download/v0.17.stable.1/rke2-selinux-0.17-1.el9.noarch.rpm 
+      - sudo yum install -y https://github.com/rancher/rke2-selinux/releases/download/v0.18.stable.1/rke2-selinux-0.18-1.el9.noarch.rpm 
       - sudo echo -e "[keyfile]\nunmanaged-devices=interface-name:cali*;interface-name:flannel*" > /etc/NetworkManager/conf.d/rke2-canal.conf
       - sudo mkdir -p /etc/rancher/rke2/
 # addons values
