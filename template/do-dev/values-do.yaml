@@ -18,7 +18,7 @@ cluster:
   name: do-dev
   config:
 #    systemDefaultRegistry: rgcrprod.azurecr.us # default registry
-    kubernetesVersion: v1.30.1+rke2r1 # https://github.com/rancher/rke2/releases
+    kubernetesVersion: v1.30.6+rke2r1 # https://github.com/rancher/rke2/releases
     localClusterAuthEndpoint:
       enabled: false
     # agentEnvVars:
@@ -126,7 +126,7 @@ nodepools:
       - libnfnetlink
       - libnftnl
       - policycoreutils-python-utils
-      - cryptsetup
+#      - cryptsetup
       - nfs-utils
       - iscsi-initiator-utils
       - zip
@@ -258,7 +258,7 @@ nodepools:
                               keycloak,
                               versions]
       runcmd:
-      - sudo yum update openssh -y
+      - sudo yum update openssh -y; sudo yum install cryptsetup -y
       - sudo sysctl -p
       - sudo yum install -y https://github.com/rancher/rke2-selinux/releases/download/v0.18.stable.1/rke2-selinux-0.18-1.el9.noarch.rpm 
       - sudo echo -e "[keyfile]\nunmanaged-devices=interface-name:cali*;interface-name:flannel*" > /etc/NetworkManager/conf.d/rke2-canal.conf
@@ -296,7 +296,7 @@ nodepools:
       - libnfnetlink
       - libnftnl
       - policycoreutils-python-utils
-      - cryptsetup
+#      - cryptsetup
       - nfs-utils
       - iscsi-initiator-utils
       - zip
@@ -338,7 +338,7 @@ nodepools:
           fs.inotify.max_user_instances=8192
           fs.inotify.max_user_watches=1048576
       runcmd:
-      - sudo yum update openssh -y
+      - sudo yum update openssh -y; sudo yum install cryptsetup -y
       - sudo sysctl -p
       - sudo yum install -y https://github.com/rancher/rke2-selinux/releases/download/v0.18.stable.1/rke2-selinux-0.18-1.el9.noarch.rpm 
       - sudo echo -e "[keyfile]\nunmanaged-devices=interface-name:cali*;interface-name:flannel*" > /etc/NetworkManager/conf.d/rke2-canal.conf
