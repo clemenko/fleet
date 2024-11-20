@@ -126,7 +126,6 @@ nodepools:
       - libnfnetlink
       - libnftnl
       - policycoreutils-python-utils
-#      - cryptsetup
       - nfs-utils
       - iscsi-initiator-utils
       - zip
@@ -296,7 +295,6 @@ nodepools:
       - libnfnetlink
       - libnftnl
       - policycoreutils-python-utils
-#      - cryptsetup
       - nfs-utils
       - iscsi-initiator-utils
       - zip
