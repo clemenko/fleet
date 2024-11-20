@@ -7,7 +7,7 @@ metadata:
   labels:
     app: flask
 spec:
-  replicas: 4
+  replicas: 3
   strategy:
     rollingUpdate:
       maxSurge: 0
