@@ -57,13 +57,13 @@ cluster:
       - authorization-mode=Webhook
       - streaming-connection-idle-timeout=5m
     registries:
-      enabled: true
-      configs:
-        - name: rgcrprod.azurecr.us
-          authConfigSecretName: carbidecredential
-          caBundle: ''
-          insecureSkipVerify: false
-          tlsSecretName: ''
+    #  enabled: true
+    #  configs:
+    #    - name: rgcrprod.azurecr.us
+    #      authConfigSecretName: carbidecredential
+    #      caBundle: ''
+    #      insecureSkipVerify: false
+    #      tlsSecretName: ''
 #      mirrors:
 #        - name: docker.io
 #          endpoints:
