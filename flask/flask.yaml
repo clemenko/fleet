@@ -85,7 +85,7 @@ metadata:
 spec:
 #  storageClassName: "longhorn-crypto-per-volume"
   accessModes: 
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 500Mi
