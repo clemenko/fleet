@@ -10,12 +10,12 @@ cluster:
   labels: {}
   name: dev-harvester
   config:
-    kubernetesVersion: v1.28.10+rke2r1
+    kubernetesVersion: v1.33.5+rke2r1
     enableNetworkPolicy: true
     localClusterAuthEndpoint:
       enabled: false
     globalConfig:
-      systemDefaultRegistry: docker.io #rgcrprod.azurecr.us
+      systemDefaultRegistry: docker.io 
       cni: canal
       docker: false
       disable_kube_proxy: false
@@ -74,7 +74,7 @@ cluster:
 nodepools:
   - name: control-plane-nodes
     # displayName: cp-nodes
-    quantity: 3
+    quantity: 1
     etcd: true
     controlplane: true
     worker: false
@@ -249,7 +249,7 @@ nodepools:
 
   - name: worker-nodes
     # displayName: wk-nodes
-    quantity: 3
+    quantity: 2
     etcd: false
     controlplane: false
     worker: true
