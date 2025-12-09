@@ -49,12 +49,12 @@ spec:
     spec:
       containers:
       - name: redis
-        image: valkey/valkey:7.2-alpine #cgr.dev/chainguard/redis 
+        image: valkey/valkey:alpine3.22
         args: ["--appendonly", "yes"]
         securityContext:
           allowPrivilegeEscalation: false
-          seLinuxOptions:
-            level: "s0:c123,c456"
+         # seLinuxOptions:
+         #   level: "s0:c123,c456"
         ports:
         - containerPort: 6379
         volumeMounts:
@@ -65,15 +65,15 @@ spec:
       - name: redis-data
         persistentVolumeClaim:
           claimName: redis
----
+#---
 
-apiVersion: v1
-kind: Secret
-metadata:
-  name: redis
-stringData:
-  CRYPTO_KEY_VALUE: "flaskisthebestdemoapplication"
-  CRYPTO_KEY_PROVIDER: "secret"
+#apiVersion: v1
+#kind: Secret
+#metadata:
+#  name: redis
+#stringData:
+#  CRYPTO_KEY_VALUE: "flaskisthebestdemoapplication"
+#  CRYPTO_KEY_PROVIDER: "secret"
 
 ---
 kind: PersistentVolumeClaim
@@ -83,7 +83,7 @@ metadata:
   labels:
     app: redis
 spec:
-  storageClassName: "longhorn-crypto-per-volume"
+#  storageClassName: "longhorn-crypto-per-volume"
   accessModes: 
     - ReadWriteMany
   resources:
